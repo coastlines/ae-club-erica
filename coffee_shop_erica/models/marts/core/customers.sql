@@ -7,21 +7,18 @@ with customer_orders as (
      customer_id
      , count(*) as n_orders
      , min(created_at) as first_order_at
-
-  from {{ source('coffee_shop', 'orders') }}
---   `analytics-engineers-club.coffee_shop.orders` 
+  from {{ ref('stg_coffee_shop_orders') }}
+  -- from `analytics-engineers-club.coffee_shop.orders` 
   group by 1
 )
 
 select 
-  customers.id as customer_id
+  customers.customer_id
   , customers.name
   , customers.email
   , coalesce(customer_orders.n_orders, 0) as n_orders
   , customer_orders.first_order_at
-from {{ source('coffee_shop', 'customers')}} as customers
--- `analytics-engineers-club.coffee_shop.customers` as customers
+from {{ ref('stg_coffee_shop_customers') }} as customers
+-- from `analytics-engineers-club.coffee_shop.customers` as customers
 left join  customer_orders
-  on  customers.id = customer_orders.customer_id 
-
-limit 5
+  on  customers.customer_id = customer_orders.customer_id

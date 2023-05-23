@@ -1,0 +1,59 @@
+version: 2
+sources:
+  - name: dbt_erica
+    project: aec-students
+    tables:
+      - name: stg_coffee_shop_customers
+        columns:
+          - name: customer_id
+            tests:
+              - unique
+              - not_null
+      - name: stg_coffee_shop_order_items
+        columns:
+          - name: order_item_id
+            tests:
+              - unique
+              - not_null
+      - name: stg_coffee_shop_orders
+        columns:
+          - name: order_id
+            tests:
+              - unique
+              - not_null
+      - name: stg_coffee_shop_product_prices
+        columns:
+          - name: product_price_id
+            tests:
+              - unique
+              - not_null
+      - name: stg_coffee_shop_products
+        columns:
+          - name: product_id
+            tests:
+              - unique
+              - not_null
+models:
+  - name: customers
+    description: "clean customers tables"
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+
+  - name: orders
+    description: "unique orders"
+    columns:
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+
+  - name: product_sales
+    description: "individual product sales"
+    columns:
+      - name: order_item_id
+        tests:
+          - unique
+          - not_null
