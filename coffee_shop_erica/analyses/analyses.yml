@@ -1,0 +1,25 @@
+version: 2
+
+sources:
+  - name: dbt_erica
+    project: aec-students
+    tables:
+      - name: dim_customers
+      - name: fct_orders
+      - name: fct_product_sales
+      - name: fct_sessions_metadata
+
+models:
+  - name: monthly_new_customers
+    description: "Count of new customers by month"
+    columns:
+      - name: signup_month
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
+  - name: weekly_revenue_by_customer_type
+    description: "Weekly revenue by customer type: new or existing"
+  - name: weekly_revenue_by_product_cat
+    description: "Weekly revenue by product category"
+

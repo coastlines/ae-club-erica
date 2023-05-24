@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: stg_coffee_shop_customers
+    description: "Clean coffee shop customers"
+    columns: 
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_coffee_shop_order_items
+    description: "Clean coffee shop order items"
+    columns: 
+      - name: order_item_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_coffee_shop_orders
+    description: "Clean coffee shop orders"
+    columns: 
+      - name: order_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_coffee_shop_product_prices
+    description: "Clean coffee shop product prices"
+    columns: 
+      - name: product_price_id
+        tests:
+          - unique
+          - not_null
+  - name: stg_coffee_shop_products
+    description: "Clean coffee shop products"
+    columns:
+      - name: product_id
+        tests:
+          - unique
+          - not_null
+
+# run test on one model
+# dbt run --select monthly_customers

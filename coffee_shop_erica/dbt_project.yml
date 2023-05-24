@@ -1,0 +1,55 @@
+
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: 'coffee_shop'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'coffee_shop_erica'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"  # directory which will store compiled SQL files
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+vars:
+  github_database: analytics-engineers-club
+  github_schema: github
+  'github_integration_tests:github_database': 'aec-students'
+  'github_integration_tests:github_schema': 'dbt_erica'
+  github__using_repo_team: false # by default this is assumed to be true
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/
+# directory as views. These settings can be overridden in the individual model
+# files using the `{{ config(...) }}` macro.
+models:
+  coffee_shop_erica:
+    # +materialized: table
+    # Config indicated by + and applies to all files under models/example/
+    # example:
+    #   +materialized: table
+
+# Change the build schema
+# By default, this package builds the Github staging models within a schema titled (<target_schema> + _stg_github) 
+# and your Github modeling models within a schema titled (<target_schema> + _github) in your destination. 
+# If this is not where you would like your Github data to be written to, 
+# add the following configuration to your root dbt_project.yml file:
+# models:
+  # github_source:
+  #   +schema: my_new_schema_name # leave blank for just the target_schema
+  # github:
+  #   +schema: my_new_schema_name # leave blank for just the target_schema'
