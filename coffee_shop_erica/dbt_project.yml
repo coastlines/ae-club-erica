@@ -24,7 +24,12 @@ clean-targets:         # directories to be removed by `dbt clean`
   - "target"
   - "dbt_packages"
 
-
+vars:
+  github_database: analytics-engineers-club
+  github_schema: github
+  'github_integration_tests:github_database': 'aec-students'
+  'github_integration_tests:github_schema': 'dbt_erica'
+  github__using_repo_team: false # by default this is assumed to be true
 # Configuring models
 # Full documentation: https://docs.getdbt.com/docs/configuring-models
 
@@ -33,6 +38,18 @@ clean-targets:         # directories to be removed by `dbt clean`
 # files using the `{{ config(...) }}` macro.
 models:
   coffee_shop_erica:
+    # +materialized: table
     # Config indicated by + and applies to all files under models/example/
-    example:
-      +materialized: view
+    # example:
+    #   +materialized: table
+
+# Change the build schema
+# By default, this package builds the Github staging models within a schema titled (<target_schema> + _stg_github) 
+# and your Github modeling models within a schema titled (<target_schema> + _github) in your destination. 
+# If this is not where you would like your Github data to be written to, 
+# add the following configuration to your root dbt_project.yml file:
+# models:
+  # github_source:
+  #   +schema: my_new_schema_name # leave blank for just the target_schema
+  # github:
+  #   +schema: my_new_schema_name # leave blank for just the target_schema'
