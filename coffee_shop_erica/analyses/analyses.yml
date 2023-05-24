@@ -18,8 +18,10 @@ models:
         tests:
           - unique
           - not_null
+
   - name: weekly_revenue_by_customer_type
     description: "Weekly revenue by customer type: new or existing"
+    
   - name: weekly_revenue_by_product_cat
     description: "Weekly revenue by product category"
 

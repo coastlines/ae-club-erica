@@ -1,0 +1,4 @@
+version: 2
+
+macros:
+  - name: get_distinct_values
